@@ -139,7 +139,8 @@ TotalClusters = unique(MatrixCombined$kmeans_cluster)[order(unique(MatrixCombine
 Mu_STR = getMu_and_STR(CommonCellTypes,TotalClusters,MatrixCombined,nSlices,sliceNames)
 cat(paste0("### ",version," starts to run the domain detection! ...\n"))
 ###### Initialize IRIS
-if(version == "IRIS"){if(!inherits(x, "dgCMatrix")){return(as(x, "CsparseMatrix"))}else{return(x)}}) 
+if(version == "IRIS"){
+countList <- lapply(countList, function(x){if(!inherits(x, "dgCMatrix")){return(as(x, "CsparseMatrix"))}else{return(x)}}) 
 ResList= IRIS_ref_iter(countList,B,AList,initVList,Mu_STR$STRList,Mu_STR$Mu)
 }else if(version == "IRISfree"){
   ResList= IRIS_Marker_iter(countList,initB,AList,initVList,Mu_STR$STRList,Mu_STR$Mu)
